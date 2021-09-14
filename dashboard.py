@@ -115,7 +115,7 @@ def pret():
     
     # Affichage prédiction solvabilité client
     st.header("Probabilité de défaut de paiement du client")
-    url = 'http://127.0.0.1:5000/' + 'predict/' + str(id_clt)
+    url = 'https://apiprojet7oc.herokuapp.com/' + 'predict/' + str(id_clt)
     response = requests.get(url)
     content = json.loads(response.content.decode('utf-8'))
     prediction = content['prediction']
@@ -142,19 +142,19 @@ def pret():
     st.plotly_chart(fig)
 
     # Comparatif client proche
-    clt_comp = st.radio("Scoring clients assimilés: ", ('Oui', 'Non')) 
+    #clt_comp = st.radio("Scoring clients assimilés: ", ('Oui', 'Non')) 
 
-    if (clt_comp=='Oui'):
-        url_clt_comp = 'http://127.0.0.1:5000/' + 'assimiles/' + str(id_clt)
-        req = requests.get(url_clt_comp)
-        content = json.loads(req.content.decode('utf-8'))
-        prediction_clt_comp = content['prediction']
+    #if (clt_comp=='Oui'):
+        #url_clt_comp = 'http://127.0.0.1:5000/' + 'assimiles/' + str(id_clt)
+        #req = requests.get(url_clt_comp)
+        #content = json.loads(req.content.decode('utf-8'))
+        #prediction_clt_comp = content['prediction']
 
-        chart_data = pd.DataFrame([["client : "+str(id_clt),prediction],["clients similaires",prediction_clt_comp]],columns=['client','probabilité de défaut'])
+        #chart_data = pd.DataFrame([["client : "+str(id_clt),prediction],["clients similaires",prediction_clt_comp]],columns=['client','probabilité de défaut'])
 
-        fig = px.bar(chart_data, x="client",y='probabilité de défaut', height=400,color = 'client')
+        #fig = px.bar(chart_data, x="client",y='probabilité de défaut', height=400,color = 'client')
         # st.dataframe(df) # if need to display dataframe
-        st.plotly_chart(fig)
+        #st.plotly_chart(fig)
 
 if __name__== '__main__':
     pret()
